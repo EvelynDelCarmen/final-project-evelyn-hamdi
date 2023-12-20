@@ -5,6 +5,7 @@ import dotenv from "dotenv"; // Import dotenv for environment variables
 dotenv.config(); // Load environment variables from the .env file
 import taskRoutes from "./routes/taskRoutes"; // Import custom task controlled-routes
 import userRoutes from "./routes/userRoutes"; // Import custom user routes
+import contactRoutes from "./routes/contactRoutes"
 import { connectDB } from "./config/db"; // Import database connection function (not used here)
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 // ROUTES - These routes USE controller functions ;)
 app.use(taskRoutes); // Use the task-controlled routes for task-related requests
 app.use(userRoutes); // Use the user-controlled routes for user-related requests
+app.use(contactRoutes);
 
 // Connection to the database through Mongoose
 connectDB();

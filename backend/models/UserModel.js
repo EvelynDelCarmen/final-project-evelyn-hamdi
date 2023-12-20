@@ -9,6 +9,12 @@ const { Schema } = mongoose;
 // Creates a new Mongoose schema named userSchema that defines the structure of a user document in the MongoDB collection. It includes fields like username, password, and accessToken, specifying their data types, validation rules, and default values.
 const userSchema = new Schema(
   {
+    imagePaths: {
+      type: [String], // Array of image paths
+    },
+    filmPaths: {
+      type: [String], // Array of film paths
+    },
     // Define the 'username' field with a String data type
     username: {
       type: String, // Specifies that 'username' should be a string
