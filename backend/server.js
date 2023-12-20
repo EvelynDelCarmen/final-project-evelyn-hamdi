@@ -21,7 +21,9 @@ app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 // ROUTES - These routes USE controller functions ;)
 app.use(taskRoutes); // Use the task-controlled routes for task-related requests
 app.use(userRoutes); // Use the user-controlled routes for user-related requests
-app.use(contactRoutes);
+app.use(contactRoutes); //for the contactform
+app.use(mediaRoutes); // for the images/film
+
 
 // Connection to the database through Mongoose
 connectDB();

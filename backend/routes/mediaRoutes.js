@@ -1,8 +1,9 @@
 import express from "express";
 import { UserModel } from "../models/UserModel";
+import { authenticateUser } from "../middleware/authenticateUser";
 const router = express.Router();
 
-router.get("/user/media", async (req, res) => {
+router.get("/user/media", authenticateUser, async (req, res) => {
     const userId = req.user._id;
 
     try {
