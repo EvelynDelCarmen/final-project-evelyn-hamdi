@@ -36,8 +36,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
     if (existingUser) {
       res.status(400);
       throw new Error(
-        `User with ${
-          existingUser.username === username ? "username" : "email"
+        `User with ${existingUser.username === username ? "username" : "email"
         } already exists`
       );
     }
@@ -90,6 +89,9 @@ export const loginUserController = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   try {
+
+    console.log("Username:", username);
+    console.log("Password:", password);
     // Find a user with the provided username in the database
     const user = await UserModel.findOne({ username });
     if (!user) {
