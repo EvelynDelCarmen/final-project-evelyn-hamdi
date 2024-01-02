@@ -1,5 +1,5 @@
 // Import the 'React' library.
-import React from "react";
+import "react";
 
 // Define the 'NotFound' functional component.
 export const NotFound = () => {
