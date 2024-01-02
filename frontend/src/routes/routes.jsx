@@ -3,18 +3,18 @@ import { Route } from "react-router-dom";
 // Import various page components used as route elements.
 import Home from "../pages/Home";
 import Contact from "../pages/Contact"
-// import NotFound from "../pages/NotFound";
+import About from "../pages/About"
+import NotFound from "../pages/NotFound";
 
 // Define the 'routes' variable as a JSX expression.
 const routes = (
   <>
 
-    {/* Define a route for the '/home' path that renders the 'Home' component. */}
+
     <Route path="/home" element={<Home />} />
     <Route path="/contact" element={<Contact />} />
-
-    {/* Define a route for the '/tasks' path that renders the 'Tasks' component. */}
-    {/* <Route path="*" element={<NotFound />} /> */}
+    <Route path="/about" element={<About />} />
+    <Route path="*" element={<NotFound />} />
   </>
 );
 
