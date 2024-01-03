@@ -1,24 +1,42 @@
+
 import express from "express";
 import { UserModel } from "../models/UserModel";
 import { authenticateUser } from "../middleware/authenticateUser";
+import cloudinary from './cloudinaryConfig'; // Import Cloudinary configuration
+import multer from 'multer'; // Import Multer for file handling
+
 const router = express.Router();
 
-router.get("/user/media", authenticateUser, async (req, res) => {
-    const userId = req.user._id;
+// Multer setup (if not already configured)
+const upload = multer({ dest: 'uploads/' });
 
+// Cloudinary Upload Route
+router.post('/upload', authenticateUser, upload.single('file'), async (req, res) => {
     try {
-        const user = await UserModel.findById(userId);
+        let result = await cloudinary.v2.uploader.upload(req.file.path, {
+            resource_type: "auto" // auto detects whether it's an image or video
+        });
 
-        if (!user) {
-            return res.status(404).json({ success: false, response: "User not found" });
-        }
+        // Update user model with the URL of the uploaded file
+        await UserModel.findByIdAndUpdate(req.user._id, {
+            $push: { imagePaths: result.url } // or filmPaths if it's a video
+        });
 
-        const { imagePaths, filmPaths } = user;
+        res.json({ success: true, url: result.url });
+    } catch (error) {
+        res.status(500).json({ success: false, response: error.message });
+    }
+});
 
-        res.status(200).json({ success: true, response: { imagePaths, filmPaths } });
+// Cloudinary Media Retrieval Route
+router.get('/media', authenticateUser, async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.user._id);
+        res.json({ success: true, imagePaths: user.imagePaths, filmPaths: user.filmPaths });
     } catch (error) {
         res.status(500).json({ success: false, response: error.message });
     }
 });
 
 export default router;
+

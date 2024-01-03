@@ -10,10 +10,12 @@ const { Schema } = mongoose;
 const userSchema = new Schema(
   {
     imagePaths: {
-      type: [String], // Array of image paths
+      type: [String], // Array of strings to store image URLs
+      default: [] // Defaults to an empty array
     },
     filmPaths: {
-      type: [String], // Array of film paths
+      type: [String], // Array of strings to store film URLs
+      default: [] // Defaults to an empty array
     },
     // Define the 'username' field with a String data type
     username: {
