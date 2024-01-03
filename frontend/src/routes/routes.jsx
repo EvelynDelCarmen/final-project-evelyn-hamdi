@@ -4,7 +4,7 @@ import { Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Contact from "../pages/Contact"
 import About from "../pages/About"
-import NotFound from "../pages/NotFound";
+import { NotFound } from "../pages/NotFound";
 
 // Define the 'routes' variable as a JSX expression.
 const routes = (

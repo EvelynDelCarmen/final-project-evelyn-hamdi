@@ -1,7 +1,7 @@
 // components/ImageGallery.jsx
 import { useEffect } from 'react';
 import { Image, Transformation } from 'cloudinary-react';
-import { imageStore } from '../stores/imageStore';
+import imageStore from '../stores/imageStore';
 
 const ImageGallery = ({ folder }) => {
     const images = imageStore((state) => state.images);
