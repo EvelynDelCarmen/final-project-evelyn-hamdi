@@ -1,34 +1,36 @@
-// stores/imageStore.js
-import { create } from 'zustand';
-import { Cloudinary } from "@cloudinary/url-gen";
-
-const imageStore = create((set) => {
-    const cld = new Cloudinary({ cloud: { cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME } });
-
-    return {
-        images: [],
-        fetchImages: async () => {
-            try {
-                // eslint-disable-next-line no-unused-vars
-                const apiKey = process.env.REACT_APP_CLOUDINARY_API_KEY;
+// // stores/imageStore.js
+// import { create } from 'zustand';
+// import { Cloudinary } from "@cloudinary/url-gen";
+// import 'dotenv/config'
 
 
-                // Update the folder path to target 'evelyndelcarmen/homepage'
-                const { resources } = await cld.search
-                    .expression('folder:evelyndelcarmen/homepage')
-                    .execute();
+// const imageStore = create((set) => {
+//     const cld = new Cloudinary({ cloud: { cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME } });
 
-                const imageUrls = resources.map((resource) => resource.secure_url);
+//     return {
+//         images: [],
+//         fetchImages: async () => {
+//             try {
+//                 // eslint-disable-next-line no-unused-vars
+//                 const apiKey = import.meta.env.VITE_CLOUDINARY_API_KEY;
 
-                set({ images: imageUrls });
-            } catch (error) {
-                console.error('Error fetching images:', error);
-            }
-        },
-    };
-});
 
-export default imageStore;
+//                 // Update the folder path to target 'evelyndelcarmen/homepage'
+//                 const { resources } = await cld.search
+//                     .expression('folder:evelyndelcarmen/homepage')
+//                     .execute();
+
+//                 const imageUrls = resources.map((resource) => resource.secure_url);
+
+//                 set({ images: imageUrls });
+//             } catch (error) {
+//                 console.error('Error fetching images:', error);
+//             }
+//         },
+//     };
+// });
+
+// export default imageStore;
 
 
 
