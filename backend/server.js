@@ -36,6 +36,10 @@ app.get("/api/endpoints", (req, res) => {
   console.log(endpoints);
 });
 
+app.use((err, req, res, next) => {
+  res.status(500).send('Something broke!');
+});
+
 // Start the server and listen for incoming requests on the specified port
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`); // Display a message when the server is successfully started

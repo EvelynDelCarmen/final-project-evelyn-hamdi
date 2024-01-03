@@ -2,7 +2,7 @@
 import express from "express";
 import { UserModel } from "../models/UserModel";
 import { authenticateUser } from "../middleware/authenticateUser";
-import cloudinary from './cloudinaryConfig'; // Import Cloudinary configuration
+import cloudinary from '../config/cloudinaryConfig'; // Import Cloudinary configuration
 import multer from 'multer'; // Import Multer for file handling
 
 const router = express.Router();
