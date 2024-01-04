@@ -1,20 +1,11 @@
 // pages/Home.jsx
 import 'react';
 // import ImageGallery from '../components/ImageGallery';
-import Button from '../reusecomponents/Button';
+import Header from '../components/Header';
 
 const Home = () => {
     return (
-        <div className="container mx-auto my-8">
-            <h1 className="font-archivoBlack text-3xl font-bold mb-4">Del Carmen</h1>
-            {/* Display different galleries for different folders */}
-            {/* <ImageGallery folder="evelyndelcarmen" /> */}
-            {/* Add more galleries as needed */}
-
-            {/* Add a button to navigate to the Contact page */}
-            <Button to="/contact" text="Contact Page" className="font-archivoBlack flex-col text-black px-4 py-2" />
-            <Button to="/about" text="About" className="font-archivoBlack flex-col text-black px-4 py-2" />
-        </div>
+        <Header />
     );
 };
 

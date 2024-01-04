@@ -6,6 +6,9 @@ export default {
       './src/**/*.js',],
   theme: {
     extend: {
+      colors: {
+        customBlue: '#0D00FF', // Replace with your desired color
+      },
       fontFamily: {
         archivoBlack: ['Archivo Black', 'sans-serif'],
       },
