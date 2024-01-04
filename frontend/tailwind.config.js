@@ -5,7 +5,11 @@ export default {
       './src/**/*.jsx',
       './src/**/*.js',],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        archivoBlack: ['Archivo Black', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }
