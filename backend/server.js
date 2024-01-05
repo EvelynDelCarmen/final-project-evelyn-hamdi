@@ -37,7 +37,7 @@ app.get("/api/endpoints", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).send('Something broke!');
+  res.status(500).send(err);
 });
 
 // Start the server and listen for incoming requests on the specified port
