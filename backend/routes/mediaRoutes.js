@@ -11,12 +11,14 @@ const router = express.Router();
 
 const storage = new CloudinaryStorage({
     cloudinary,
-    params: {
-        folder: 'uploads',
-        allowedFormats: ['jpg', 'png'],
-        transformation: [{ width: 500, height: 500, crop: 'limit' }],
+    params: (req, file) => {
+        return {
+            folder: req.body.folderName || 'defaultFolder', // Use folder name from the request, or a default
+            allowedFormats: ['jpg', 'png'],
+            transformation: [{ width: 500, height: 500, crop: 'limit' }],
+        };
     },
-})
+});
 // Multer setup (if not already configured)
 const upload = multer({ storage });
 
