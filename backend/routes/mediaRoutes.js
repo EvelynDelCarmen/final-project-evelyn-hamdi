@@ -65,12 +65,30 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 // Cloudinary Media Retrieval Route
 router.get('/media', async (req, res) => {
     try {
-        const images = await ImageModel.find();
-        res.json({ success: true, images });
+        const folderName = req.query.folderName; // Get folder name from query parameter
+        const imageIds = req.query.imageIds; // Get specific image IDs from query parameter
+
+        let images;
+
+        if (folderName) {
+            // Find all images in the specified folder
+            images = await ImageModel.find({ folderName: folderName });
+        } else if (imageIds) {
+            // Find specific images by their IDs
+            const ids = imageIds.split(','); // Assuming imageIds are sent as a comma-separated string
+            images = await ImageModel.find({ '_id': { $in: ids } });
+        } else {
+            return res.status(400).json({ success: false, response: "Folder name or image IDs are required." });
+        }
+
+        if (images.length === 0) {
+            return res.status(404).json({ success: false, response: "No images found." });
+        }
+
+        res.json({ success: true, images: images });
     } catch (error) {
         res.status(500).json({ success: false, response: error.message });
     }
 });
 
 export default router;
-
