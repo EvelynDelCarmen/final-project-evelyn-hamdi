@@ -20,6 +20,32 @@ const storage = new CloudinaryStorage({
 // Multer setup (if not already configured)
 const upload = multer({ storage });
 
+router.post('/create-folder', async (req, res) => {
+    try {
+        let folderName = req.body.folderName; // Get folder name from request body
+
+        // Validate folder name
+        if (!folderName) {
+            return res.status(400).json({ success: false, response: "Folder name is required." });
+        }
+
+        // Check if the folder name already exists in your database
+        const existingFolder = await ImageModel.findOne({ folderName: folderName });
+        if (existingFolder) {
+            return res.status(400).json({ success: false, response: "Folder name already exists." });
+        }
+
+
+        // Create a new ImageModel instance with the folder name
+        const newFolder = new ImageModel({ folderName: folderName });
+        await newFolder.save(); // Save the new folder record to the database
+
+        res.json({ success: true, folderName });
+    } catch (error) {
+        res.status(500).json({ success: false, response: error.message });
+    }
+});
+
 // Cloudinary Upload Route
 router.post('/upload', upload.single('image'), async (req, res) => {
     try {
