@@ -10,8 +10,9 @@ const Header = () => {
 
             {/* Wrapped buttons in a div for better control */}
             <div className="flex flex-col md:flex-row md:space-x-4 md:order-1">
-                <Button to="/contact" text="Contact Page" className="font-archivoBlack text-customBlue text-3xl px-4 py-2 mb-4 md:mb-0 text-left" />
                 <Button to="/about" text="About" className="font-archivoBlack text-customBlue text-3xl px-4 py-2 text-left" />
+                <Button to="/contact" text="Contact Page" className="font-archivoBlack text-customBlue text-3xl px-4 py-2 mb-4 md:mb-0 text-left" />
+
             </div>
 
             {/* Additional div for spacing on desktop */}
