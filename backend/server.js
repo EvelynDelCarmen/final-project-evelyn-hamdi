@@ -29,7 +29,7 @@ app.use(mediaRoutes); // for the images/film
 // Connection to the database through Mongoose
 connectDB();
 // Create a dedicated endpoint to view endpoints in the browser
-app.get("/api/endpoints", (req, res) => {
+app.get("/", (req, res) => {
   const endpoints = expressListEndpoints(app);
   res.json(endpoints);
   console.log("List of Endpoints:");

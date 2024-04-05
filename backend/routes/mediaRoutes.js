@@ -12,6 +12,7 @@ const router = express.Router();
 const storage = new CloudinaryStorage({
     cloudinary,
     params: (req, file) => {
+        console.log(req.body)
         return {
             folder: req.body.folderName || 'defaultFolder', // Use folder name from the request, or a default
             allowedFormats: ['jpg', 'png'],
@@ -48,17 +49,14 @@ router.post('/create-folder', async (req, res) => {
     }
 });
 
-// Cloudinary Upload Route
+// Endpoint for uploading images
 router.post('/upload', upload.single('image'), async (req, res) => {
     try {
-        // let result = await cloudinary.v2.uploader.upload(req.file.path, {
-        //     resource_type: "auto" // auto detects whether it's an image or video
-        // });
+        const folderName = req.body.folderName; // Get the folder name from the request body
 
-        // Update user model with the URL of the uploaded file
-        const image = await new ImageModel({ name: req.body.name, imagePaths: req.file.path }).save()
+        const image = await new ImageModel({ name: req.body.name, folderName, imagePaths: req.file.path }).save()
 
-        res.json({ success: true, image });
+        res.json({ success: true, message: 'Images uploaded successfully', image });
     } catch (error) {
         res.status(500).json({ success: false, response: error.message });
     }
@@ -94,3 +92,4 @@ router.get('/media', async (req, res) => {
 });
 
 export default router;
+

@@ -25,11 +25,11 @@ const userSchema = new Schema(
       minlength: 2, // Sets a minimum length of 2 characters for 'username'
     },
     // Define the 'password' field with a String data type
-    // password: {
-    //   type: String, // Specifies that 'password' should be a string
-    //   required: true, // Indicates that 'password' is a required field
-    //   minlength: 6, // Sets a minimum length of 6 characters for 'password'
-    // },
+    password: {
+      type: String, // Specifies that 'password' should be a string
+      required: true, // Indicates that 'password' is a required field
+      minlength: 6, // Sets a minimum length of 6 characters for 'password'
+    },
     email: {
       type: String,
       required: true,
