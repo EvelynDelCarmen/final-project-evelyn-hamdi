@@ -7,6 +7,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 // Actual Functions here
+//I have to change the whole structure
+
 
 // -----------------------
 // -----------------------
