@@ -7,36 +7,36 @@ const router = express.Router();
 
 // This route handles user questions and fetches responses from the AI
 router.post("/ask-beyonce", async (req, res) => {
-    const { question } = req.body;
+  const { question } = req.body;
 
-    try {
-        // Prepare the prompt for the OpenAI API
-        const prompt = `As an expert on Beyoncé, answer this question: ${question}`;
+  try {
+    // Prepare the prompt for the OpenAI API
+    const prompt = `As an expert on Beyoncé, answer this question: ${question}`;
 
-        // Make the API request to OpenAI
-        const response = await axios.post(
-            "https://api.openai.com/v4/completions",
-            {
-                model: "text-davinci-003", // You might choose a different model based on your preference
-                prompt: prompt,
-                max_tokens: 150,
-            },
-            {
-                headers: {
-                    "Authorization": `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}` // Your OpenAI API Key
-                }
-            }
-        );
+    // Make the API request to OpenAI
+    const response = await axios.post(
+      "https://api.openai.com/v4/completions",
+      {
+        model: "text-davinci-003", // You might choose a different model based on your preference
+        prompt: prompt,
+        max_tokens: 150,
+      },
+      {
+        headers: {
+          "Authorization": `Bearer ${process.env.OPENAI_API_KEY}` // Your OpenAI API Key
+        }
+      }
+    );
 
-        // Extract the AI's answer from the response
-        const answer = response.data.choices[0].text.trim();
+    // Extract the AI's answer from the response
+    const answer = response.data.choices[0].text.trim();
 
-        // Return the question and answer to the user
-        res.json({ success: true, question, answer });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Failed to get an answer from AI" });
-    }
+    // Return the question and answer to the user
+    res.json({ success: true, question, answer });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to get an answer from AI" });
+  }
 });
 
 export default router;
