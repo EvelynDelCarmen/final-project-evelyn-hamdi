@@ -5,7 +5,7 @@ import dotenv from "dotenv"; // Import dotenv for environment variables
 import expressListEndpoints from "express-list-endpoints";
 dotenv.config(); // Load environment variables from the .env file
 import userRoutes from "./routes/userRoutes"; // Import custom user routes
-import contactRoutes from "./routes/contactRoutes"
+import questionRoutes from "./routes/questionRoutes"
 import mediaRoutes from "./routes/mediaRoutes"
 import { connectDB } from "./config/db"; // Import database connection function (not used here)
 
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 // ROUTES - These routes USE controller functions ;)
 // Use the task-controlled routes for task-related requests
 app.use(userRoutes); // Use the user-controlled routes for user-related requests
-app.use(contactRoutes); //for the contactform
+app.use(questionRoutes); //for the question-beyonce
 app.use(mediaRoutes); // for the images/film
 
 
