@@ -1,7 +1,6 @@
 
 import express from "express";
-import { UserModel } from "../models/UserModel";
-import { ImageModel } from "../models/ImageModel";
+import { PortfolioItemModel } from "../models/PortfolioItemModel";
 import { authenticateUser } from "../middleware/authenticateUser";
 import cloudinary from '../config/cloudinaryConfig'; // Import Cloudinary configuration
 import multer from 'multer'; // Import Multer for file handling
@@ -49,14 +48,24 @@ router.post('/create-folder', async (req, res) => {
     }
 });
 
-// Endpoint for uploading images
-router.post('/upload', upload.single('image'), async (req, res) => {
+router.post('/upload', authenticateUser, upload.single('image'), async (req, res) => {
     try {
-        const folderName = req.body.folderName; // Get the folder name from the request body
+        const { folderName, name, itemType } = req.body;
+        // Here, `req.user` is assumed to be set by `authenticateUser` middleware
+        // and contains the user's information, including their ID.
 
-        const image = await new ImageModel({ name: req.body.name, folderName, imagePaths: req.file.path }).save()
+        // Create a new PortfolioItem with the uploaded image information
+        const newPortfolioItem = new PortfolioItemModel({
+            user: req.user._id, // Link the item to the user
+            folderName,
+            name: [name], // Assuming name is provided; adjust as necessary
+            paths: [req.file.path], // The path(s) of the uploaded file(s)
+            itemType, // This should be defined in your body or set a default
+        });
 
-        res.json({ success: true, message: 'Images uploaded successfully', image });
+        await newPortfolioItem.save(); // Save the new portfolio item to the database
+
+        res.json({ success: true, message: 'Item uploaded successfully', item: newPortfolioItem });
     } catch (error) {
         res.status(500).json({ success: false, response: error.message });
     }
