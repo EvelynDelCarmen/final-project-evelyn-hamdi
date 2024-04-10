@@ -4,10 +4,10 @@ import cors from "cors"; // Import the CORS middleware
 import dotenv from "dotenv"; // Import dotenv for environment variables
 import expressListEndpoints from "express-list-endpoints";
 dotenv.config(); // Load environment variables from the .env file
-import userRoutes from "./routes/userRoutes"; // Import custom user routes
-import questionRoutes from "./routes/questionRoutes"
-import mediaRoutes from "./routes/mediaRoutes"
-import { connectDB } from "./config/db"; // Import database connection function (not used here)
+import userRoutes from "./routes/userRoutes.js"; // Import custom user routes
+import questionRoutes from "./routes/questionRoutes.js"
+import mediaRoutes from "./routes/mediaRoutes.js"
+import { connectDB } from "./config/db.js"; // Import database connection function (not used here)
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 const port = process.env.PORT; // Set the port number for the server

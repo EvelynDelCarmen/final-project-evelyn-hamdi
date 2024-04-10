@@ -1,11 +1,12 @@
-import express from "express";
-import { askBeyonceController } from "../controllers/openaiController"; // Make sure the path matches your project structure
+import express from 'express';
+import { askBeyController } from '../controllers/openaiController';
 
 const router = express.Router();
 
-router.post("/ask-beyonce", askBeyonceController);
+router.post('/ask-bey', askBeyController);
 
 export default router;
+
 
 
 
