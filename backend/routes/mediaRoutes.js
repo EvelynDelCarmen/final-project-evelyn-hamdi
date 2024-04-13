@@ -2,8 +2,8 @@
 import express from "express";
 import { PortfolioItemModel } from "../models/PortfolioItemModel";
 import { authenticateUser } from "../middleware/authenticateUser";
-import cloudinary from '../config/cloudinaryConfig'; // Import Cloudinary configuration
-import multer from 'multer'; // Import Multer for file handling
+import cloudinary from '../config/cloudinaryConfig';
+import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
 
 const router = express.Router();
@@ -45,33 +45,61 @@ router.post('/upload', authenticateUser, upload.single('image'), async (req, res
     }
 });
 
+
 // Cloudinary Media Retrieval Route
-router.get('/media', async (req, res) => {
+router.get('/media', authenticateUser, async (req, res) => {
+    const { folderName } = req.query; // Get folder name from query parameter
+
     try {
-        const folderName = req.query.folderName; // Get folder name from query parameter
-        const imageIds = req.query.imageIds; // Get specific image IDs from query parameter
+        // Fetch the images from Cloudinary here
+        const { resources } = await cloudinary.search
+            .expression(`folder:${folderName}`)
+            .sort_by('public_id', 'desc')
+            .max_results(30)
+            .execute();
 
-        let images;
+        const images = resources.map((file) => {
+            return { url: file.secure_url, public_id: file.public_id };
+        });
 
-        if (folderName) {
-            // Find all images in the specified folder
-            images = await ImageModel.find({ folderName: folderName });
-        } else if (imageIds) {
-            // Find specific images by their IDs
-            const ids = imageIds.split(','); // Assuming imageIds are sent as a comma-separated string
-            images = await ImageModel.find({ '_id': { $in: ids } });
-        } else {
-            return res.status(400).json({ success: false, response: "Folder name or image IDs are required." });
+        if (!images.length) {
+            return res.status(404).json({ success: false, message: "No images found in the specified folder." });
         }
 
-        if (images.length === 0) {
-            return res.status(404).json({ success: false, response: "No images found." });
-        }
-
-        res.json({ success: true, images: images });
+        res.json({ success: true, images });
     } catch (error) {
-        res.status(500).json({ success: false, response: error.message });
+        console.error('Error fetching media:', error);
+        res.status(500).json({ success: false, message: error.message });
     }
 });
+
+
+// Cloudinary Media Retrieval Route
+// router.get('/media', authenticateUser, async (req, res) => {
+//     const { folderName, imageIds } = req.query;
+
+//     try {
+//         let items;
+//         if (folderName) {
+//             // Find all portfolio items in the specified folder
+//             items = await PortfolioItemModel.find({ folderName: folderName, user: req.user._id });
+//         } else if (imageIds) {
+//             // Find specific portfolio items by their IDs
+//             const ids = imageIds.split(',');
+//             items = await PortfolioItemModel.find({ '_id': { $in: ids }, user: req.user._id });
+//         } else {
+//             return res.status(400).json({ success: false, message: "Folder name or image IDs are required." });
+//         }
+
+//         if (!items.length) {
+//             return res.status(404).json({ success: false, message: "No items found." });
+//         }
+
+//         res.json({ success: true, items });
+//     } catch (error) {
+//         console.error('Error fetching media:', error);
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// });
 
 export default router;

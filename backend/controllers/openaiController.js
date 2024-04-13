@@ -38,7 +38,7 @@ export const askBeyController = async (req, res) => {
         const response = await axios.post(
             "https://api.openai.com/v1/chat/completions",
             {
-                model: "gpt-3.5-turbo", // Specifies the AI model
+                model: "gpt-4-turbo-preview", // Specifies the AI model
                 messages: [ // Defines the context and the user question for the AI
                     { role: "system", content: "You are a knowledgeable assistant about Beyoncé, focusing on providing the most current information." },
                     { role: "user", content: question },
