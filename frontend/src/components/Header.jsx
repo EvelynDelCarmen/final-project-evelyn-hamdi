@@ -1,5 +1,5 @@
 import 'react';
-import Button from '../reusecomponents/Button';
+import Button from './reusecomponents/Button';
 
 const Header = () => {
     return (

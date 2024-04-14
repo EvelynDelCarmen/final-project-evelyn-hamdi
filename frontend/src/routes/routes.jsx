@@ -2,7 +2,7 @@
 import { Route } from "react-router-dom";
 // Import various page components used as route elements.
 import Home from "../pages/Home";
-import Contact from "../pages/Contact"
+// import Contact from "../pages/Contact"
 import About from "../pages/About"
 import { NotFound } from "../pages/NotFound";
 
@@ -12,7 +12,7 @@ const routes = (
 
 
     <Route path="/" element={<Home />} />
-    <Route path="/contact" element={<Contact />} />
+    {/* <Route path="/contact" element={<Contact />} /> */}
     <Route path="/about" element={<About />} />
     <Route path="*" element={<NotFound />} />
   </>
