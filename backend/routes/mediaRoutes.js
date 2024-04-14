@@ -74,32 +74,4 @@ router.get('/media', authenticateUser, async (req, res) => {
 });
 
 
-// Cloudinary Media Retrieval Route
-// router.get('/media', authenticateUser, async (req, res) => {
-//     const { folderName, imageIds } = req.query;
-
-//     try {
-//         let items;
-//         if (folderName) {
-//             // Find all portfolio items in the specified folder
-//             items = await PortfolioItemModel.find({ folderName: folderName, user: req.user._id });
-//         } else if (imageIds) {
-//             // Find specific portfolio items by their IDs
-//             const ids = imageIds.split(',');
-//             items = await PortfolioItemModel.find({ '_id': { $in: ids }, user: req.user._id });
-//         } else {
-//             return res.status(400).json({ success: false, message: "Folder name or image IDs are required." });
-//         }
-
-//         if (!items.length) {
-//             return res.status(404).json({ success: false, message: "No items found." });
-//         }
-
-//         res.json({ success: true, items });
-//     } catch (error) {
-//         console.error('Error fetching media:', error);
-//         res.status(500).json({ success: false, message: error.message });
-//     }
-// });
-
 export default router;

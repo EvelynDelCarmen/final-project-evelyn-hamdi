@@ -2,8 +2,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Placeholder for the function that fetches the latest news about Beyoncé
-// You will need to implement this function based on your choice of news API or data source
+
 async function getLatestBeyonceNews() {
     // Logic to fetch and summarize the latest news about Beyoncé
     // For example, this could involve calling a news API and processing the response
