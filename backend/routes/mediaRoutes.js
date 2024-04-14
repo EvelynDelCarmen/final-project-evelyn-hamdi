@@ -47,7 +47,7 @@ router.post('/upload', authenticateUser, upload.single('image'), async (req, res
 
 
 // Cloudinary Media Retrieval Route
-router.get('/media', authenticateUser, async (req, res) => {
+router.get('/media', async (req, res) => {
     const { folderName } = req.query; // Get folder name from query parameter
 
     try {
