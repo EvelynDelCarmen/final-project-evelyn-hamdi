@@ -1,98 +1,52 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import gsap from "gsap";
+// pages/About.jsx
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const About = () => {
+    const [question, setQuestion] = useState('');
+    const [answer, setAnswer] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-    //GSAP - ändra effekterna
-    useEffect(() => {
-        const logotypeElements = document.querySelectorAll(".logotype");
-        logotypeElements.forEach((container) => {
-            const logo = container.querySelector(".logo");
-            const squareTop = container.querySelectorAll(".right-up");
-            const squareBottom = container.querySelectorAll(".left-down");
-            const toggleLogo = gsap.timeline({
-                reversed: true,
-                paused: true,
-                defaults: { duration: 0.3 },
-            });
-            toggleLogo
-                .to(logo, { rotation: 135 }, 0)
-                .to(squareTop, { fill: "#32E0C4" }, "<")
-                .to(squareBottom, { fill: "#32E0C4" }, "<");
-            container.addEventListener("mouseenter", () => toggleLogo.play());
-            container.addEventListener("mouseleave", () => toggleLogo.reverse());
-        });
-    }, []); // Empty dependency array to run the effect only once on mount
+    const handleQuestionChange = (event) => {
+        setQuestion(event.target.value);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/ask-bey`, { question });
+            setAnswer(response.data.answer);
+        } catch (error) {
+            console.error('Failed to fetch answer:', error);
+            setAnswer('Failed to fetch answer. Please try again.');
+        }
+        setIsLoading(false);
+    };
+
     return (
-
-        //responsive design - lägg till 
-        <div className="container mx-auto my-8 flex">
-            <div className="w-1/2 pr-4">
-                {/* Add your image here */}
-                <img
-                    src="src/assets/evelyn123.jpg"
-                    alt="Evelyn Del Carmen"
-                    className="w-full object-cover"
+        <div className="min-h-screen flex flex-col justify-center items-center">
+            <h1 className="text-3xl font-bold mb-4">About Beyoncé</h1>
+            <form onSubmit={handleSubmit} className="flex flex-col items-center">
+                <input
+                    type="text"
+                    value={question}
+                    onChange={handleQuestionChange}
+                    placeholder="Ask something about Beyoncé..."
+                    className="border border-gray-400 rounded-md p-2 mb-2 w-72 text-black"
                 />
-            </div>
-            <div className="w-1/2">
-                <div className="flex justify-end mb-4">
-                    <Link
-                        to="/"
-                        className="text-2xl text-customBlue p-1 border border-customBlue rounded-md hover:bg-customBlue hover:text-white transition-all">
-                        {/* This is your sleeker "X" button */}
-                        &#10006;
-                    </Link>
-                </div>
-                <div>
-                    <h1 className="font-archivoBlack text-2xl font-bold mb-4 text-customBlue">
-                        About
-                    </h1>
-                    <p className="opacity-100 transform translate-x-0 translate-y-0">
-                        GROWING UP IN THE SWEDISH COUNTRYSIDE,
-                        <br />
-                        EVELYN DEL CARMEN EARLY ON FOUND AN ESCAPE
-                        <br />
-                        FROM THE MUNDANE EVERYDAY IN CINEMA.
-                        <br />
-                        INSPIRED BY THE CINEMATIC AESTHETICS,
-                        <br />
-                        SHE PICKED UP HER FIRST CAMERA AT A YOUNG AGE
-                        <br />
-                        AND BEGAN CAPTURING THE PEOPLE AND PLACES
-                        <br />
-                        AROUND HER. SINCE THEN, EVELYN HAS STUDIED
-                        <br />
-                        PHOTOGRAPHY AND MOVING IMAGE AT KULTURAMA
-                        <br />
-                        AND FOTOSKOLAN STHLM. SHE ADDITIONALLY HAS A<br />
-                        BACKGROUND IN PROJECT MANAGEMENT, SOMETHING
-                        <br />
-                        THAT HAS PROVED USEFUL WHEN DIRECTING PHOTO SHOOTS
-                        <br />
-                        AND MUSIC VIDEOS. NO STRANGER TO FAST-PACED ENVIRONMENTS,
-                        <br />
-                        EVELYN IS KNOWN FOR HER HEARTY LAUGHTER, SHARP EYE FOR
-                        <br />
-                        DETAIL, AND HER “LET’S DO THIS”-ATTITUDE.
-                    </p>
-                    <br />
-                    <h1 className="font-archivoBlack text-2xl font-bold mb-4 text-customBlue">
-                        Clients & expertise
-                    </h1>
-                    <p className="opacity-100 transform translate-x-0 translate-y-0">
-                        HAVING SPECIALISED IN E-COM,
-                        <br />
-                        PORTRAITS AND PRODUCT PHOTOGRAPHY – <br />
-                        HER CLIENT LIST INCLUDES FILIPPA K, <br />
-                        & OTHER STORIES, WEEKDAY, H&M,
-                        <br /> SKANSKA, SONIC MAGAZINE, <br />
-                        SOUNDTELLING AND MORE.
-                    </p>
-                </div>
-            </div>
+                <button
+                    type="submit"
+                    disabled={isLoading}
+                    className={`bg-blue-500 text-white rounded-md py-2 px-4 ${isLoading && 'opacity-50 cursor-not-allowed'}`}
+                >
+                    {isLoading ? 'Asking...' : 'Ask'}
+                </button>
+            </form>
+            {answer && <p className="mt-4">{answer}</p>}
         </div>
     );
 };
+
 export default About;
+
