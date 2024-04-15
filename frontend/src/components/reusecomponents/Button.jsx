@@ -1,15 +1,15 @@
 // components/Button.jsx
-import 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Button = ({ to, text, className }) => {
+    // Assuming all instances of this Button are intended for navigation
     return (
-        <Link to={to}>
-            <button className={className}>
-                {text}
-            </button>
+        <Link to={to} className={`${className} inline-block px-4 py-2 text-center transition-colors duration-300 ease-in-out`}>
+            {text}
         </Link>
     );
 };
 
 export default Button;
+

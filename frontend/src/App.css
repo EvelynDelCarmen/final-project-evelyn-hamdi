@@ -1,2 +1,43 @@
 /* src/index.css */
 @import './styles/tailwind.css';
+
+body {
+    background-color: #000;
+    color: #fff;
+}
+
+/* THIS IS THE MASRONY STYLE FOR THE IMAGEGALLERY */
+.masonry {
+    column-count: 1;
+    column-gap: 1rem;
+}
+
+@media (min-width: 640px) {
+
+    /* sm: */
+    .masonry {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 768px) {
+
+    /* md: */
+    .masonry {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    /* lg: */
+    .masonry {
+        column-count: 4;
+    }
+}
+
+/* Prevents images from being split across columns */
+.masonry-image {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+}

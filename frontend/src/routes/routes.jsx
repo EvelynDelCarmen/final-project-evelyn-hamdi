@@ -5,14 +5,15 @@ import Home from "../pages/Home";
 // import Contact from "../pages/Contact"
 import About from "../pages/About"
 import { NotFound } from "../pages/NotFound";
+// import DetailedGallery from "../components/DetailedGallery";
+
 
 // Define the 'routes' variable as a JSX expression.
 const routes = (
   <>
-
-
     <Route path="/" element={<Home />} />
     {/* <Route path="/contact" element={<Contact />} /> */}
+    {/* <Route path="/folder/:folderName" element={<DetailedGallery />} /> */}
     <Route path="/about" element={<About />} />
     <Route path="*" element={<NotFound />} />
   </>
