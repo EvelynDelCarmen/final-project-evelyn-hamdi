@@ -14,20 +14,28 @@ const port = process.env.PORT || 3000;
 
 
 
-app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
+// app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
+
+// Apply CORS to all responses
+app.use(cors({
+  origin: ['http://localhost:5174'],  // Add more origins as needed
+  credentials: true,  // If your frontend needs to send cookies or authorization headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+}));
+
 app.use(express.json()); // Parse incoming JSON data
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 // app.use(express.urlencoded({ extended: true }));
 
+// This is often handled by the cors() middleware itself, but you can also add this if needed:
+app.options('*', cors()); // Enable preflight for all routes
+
+
 connectDB();
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", '*');
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  next();
-});
+
+
 
 app.use(userRoutes);
 app.use(questionRoutes);
@@ -43,10 +51,17 @@ app.get("/", (req, res) => {
 });
 
 // Global error handler
-app.use((err, req, res, next) => {
-  console.error(`Error: ${err.message}`);
-  res.status(500).send('Server Error');
+// app.use((err, req, res, next) => {
+//   console.error(`Error: ${err.message}`);
+//   res.status(500).send('Server Error');
+// });
+
+// Example of simple request logging
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.path}`);
+  next();
 });
+
 
 
 app.listen(port, () => {
