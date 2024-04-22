@@ -21,7 +21,7 @@ const Header = () => {
 
                 {/* Contact button appears last on mobile and right on desktop */}
                 <div className="md:order-3">
-                    <Button to="/contact" text="Contact" className="md:ml-4" />
+                    <Button to="/login" text="Login" className="md:ml-4" />
                 </div>
             </div>
         </div>

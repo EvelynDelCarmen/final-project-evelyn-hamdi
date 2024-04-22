@@ -12,9 +12,12 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
-
-app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
+// app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
 
 // Apply CORS to all responses
 // app.use(cors({
@@ -38,6 +41,7 @@ app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 
 // This is often handled by the cors() middleware itself, but you can also add this if needed:
 // app.options('*', cors()); // Enable preflight for all routes
+
 
 
 connectDB();
