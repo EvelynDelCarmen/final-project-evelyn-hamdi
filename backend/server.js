@@ -10,7 +10,7 @@ import { connectDB } from "./config/db.js";
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 
 
@@ -23,6 +23,14 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 }));
+
+// Log the response headers
+app.use((req, res, next) => {
+  res.on('finish', () => {
+    console.log('Response headers:', res.getHeaders());
+  });
+  next();
+});
 
 app.use(express.json()); // Parse incoming JSON data
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
