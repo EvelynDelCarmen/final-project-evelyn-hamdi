@@ -19,9 +19,9 @@ app.use(express.json()); // Parse incoming JSON data
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 
 
-app.use(userRoutes);
-app.use(questionRoutes);
-app.use(mediaRoutes);
+app.use("/login", userRoutes);
+app.use("/ask-bey", questionRoutes);
+app.use("/media", mediaRoutes);
 
 
 
