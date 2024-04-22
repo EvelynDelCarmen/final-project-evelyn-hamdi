@@ -16,8 +16,8 @@ const port = process.env.PORT || 3000;
 
 app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
 app.use(express.json()); // Parse incoming JSON data
-// app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
+// app.use(express.urlencoded({ extended: true }));
 
 connectDB();
 
