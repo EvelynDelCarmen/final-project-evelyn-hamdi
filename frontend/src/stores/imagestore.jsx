@@ -47,7 +47,8 @@ const useImageStore = create((set) => ({
 
         try {
             const response = await axios.get(url, {
-                params: { folderName: folderName }
+                params: { folderName: folderName },
+                withCredentials: true
             });
             console.log('Images received:', response.data.images);
             set({ images: response.data.images, isLoading: false });

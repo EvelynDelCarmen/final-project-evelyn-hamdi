@@ -47,6 +47,7 @@ export const userStore = create((set, get) => ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, username, password }),
+        credentials: 'include',
       });
 
       // Parse the response data as JSON.
@@ -84,6 +85,7 @@ export const userStore = create((set, get) => ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
+        credentials: 'include',
       });
 
       // Parse the response data as JSON.

@@ -15,7 +15,9 @@ const About = () => {
         event.preventDefault();
         setIsLoading(true);
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/ask-bey`, { question },);
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/ask-bey`, { question }, {
+                withCredentials: true
+            });
             setAnswer(response.data.answer);
         } catch (error) {
             console.error('Failed to fetch answer:', error);
