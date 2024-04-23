@@ -15,7 +15,7 @@ const port = process.env.PORT;
 // app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
 
 app.use(cors({
-  origin: "http://localhost:5173", // or your frontend's deployed URL - HÄR MÅSTE JAG LÄGGA IN MIN FRONTEND URL NÄR DEN ÄR DEPLOYAD
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 }));
 
