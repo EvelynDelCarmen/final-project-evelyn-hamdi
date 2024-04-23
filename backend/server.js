@@ -6,7 +6,7 @@ import expressListEndpoints from "express-list-endpoints";
 import userRoutes from "./routes/userRoutes.js";
 import questionRoutes from "./routes/questionRoutes.js"
 import mediaRoutes from "./routes/mediaRoutes.js"
-import { connectDB } from "./config/db.js";
+// import { connectDB } from "./config/db.js";
 
 dotenv.config();
 const app = express();
@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 // app.use(express.urlencoded({ extended: true }));
 
 
-connectDB();
+// connectDB();
 
 app.use(userRoutes);
 app.use(questionRoutes);
