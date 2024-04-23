@@ -1,13 +1,7 @@
-import axios from 'axios';
-import dotenv from 'dotenv';
+import axios from "axios";
+import dotenv from "dotenv";
 dotenv.config();
 
-
-async function getLatestBeyonceNews() {
-    // Logic to fetch and summarize the latest news about Beyoncé
-    // For example, this could involve calling a news API and processing the response
-    return "Beyoncé has recently released a new album titled 'Cowboy Carter'.";
-}
 
 export const askBeyController = async (req, res) => {
     const { question } = req.body; // Destructures the question from the request body
@@ -21,16 +15,8 @@ export const askBeyController = async (req, res) => {
 
     try {
 
-        // Fetch the latest news about Beyoncé
-        const latestNews = await getLatestBeyonceNews();
-
-        // Construct the prompt with the latest news information
-        const prompt = `Considering the latest updates: ${latestNews}. Now, as an AI knowledgeable about Beyoncé's life, career, and music, answer the following question: ${question}`;
-
-
-        // Prepares the prompt for the AI, specifically asking to answer questions about Beyoncé
-        // const prompt = `You are an AI knowledgeable about Beyoncé's life, career, and music, including her latest releases and activities up to April 2023. Answer the following question with the most recent data and insights available: ${question}`;
-
+        const today = new Date();
+        const prompt = `You are an AI knowledgeable about Beyoncé's life, career, and music up to ${today.toLocaleDateString()}. Answer the following question: ${question}`;
 
         console.log("Sending prompt to OpenAI:", prompt); // Logs the prepared prompt to the console
         // Makes a POST request to the OpenAI API with the question and settings for the AI response

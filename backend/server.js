@@ -6,13 +6,12 @@ import expressListEndpoints from "express-list-endpoints";
 import userRoutes from "./routes/userRoutes.js";
 import questionRoutes from "./routes/questionRoutes.js"
 import mediaRoutes from "./routes/mediaRoutes.js"
-// import { connectDB } from "./config/db.js";
+
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-// app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
 
 app.use(cors({
   origin: process.env.FRONTEND_URL,
@@ -24,8 +23,6 @@ app.use(express.json()); // Parse incoming JSON data
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 // app.use(express.urlencoded({ extended: true }));
 
-
-// connectDB();
 
 app.use(userRoutes);
 app.use(questionRoutes);
