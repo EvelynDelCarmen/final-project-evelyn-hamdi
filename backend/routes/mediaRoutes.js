@@ -97,7 +97,7 @@ router.get('/media', async (req, res) => {
             res.json({ success: true, images });
         } else {
             // If no folderName is provided, list all folders
-            const { folders } = await cloudinary.api.sub_folders("your_base_folder"); // Replace with your base folder path if any
+            const { folders } = await cloudinary.api.sub_folders("Beyonce"); // Replace with your base folder path if any
 
             // For each folder, get the first image to use as a cover image
             const folderCoversPromises = folders.map(async (folder) => {
