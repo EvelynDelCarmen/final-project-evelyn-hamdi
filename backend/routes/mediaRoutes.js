@@ -47,31 +47,87 @@ router.post('/upload', authenticateUser, upload.single('image'), async (req, res
 
 
 // Cloudinary Media Retrieval Route
+// router.get('/media', async (req, res) => {
+//     const { folderName } = req.query; // Get folder name from query parameter
+
+//     try {
+//         // Fetch the images from Cloudinary here
+//         const { resources } = await cloudinary.search
+//             .expression(`folder:${folderName}`)
+//             .sort_by('public_id', 'desc')
+//             .max_results(30)
+//             .execute();
+
+//         const images = resources.map((file) => {
+//             return { url: file.secure_url, public_id: file.public_id };
+//         });
+
+//         if (!images.length) {
+//             return res.status(404).json({ success: false, message: "No images found in the specified folder." });
+//         }
+
+//         res.json({ success: true, images });
+//     } catch (error) {
+//         console.error('Error fetching media:', error);
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// });
+
+// Cloudinary Media Retrieval Route
 router.get('/media', async (req, res) => {
     const { folderName } = req.query; // Get folder name from query parameter
 
     try {
-        // Fetch the images from Cloudinary here
-        const { resources } = await cloudinary.search
-            .expression(`folder:${folderName}`)
-            .sort_by('public_id', 'desc')
-            .max_results(30)
-            .execute();
+        if (folderName) {
+            // Fetch the images from a specified folder
+            const { resources } = await cloudinary.search
+                .expression(`folder:${folderName}`)
+                .sort_by('public_id', 'desc')
+                .max_results(30)
+                .execute();
 
-        const images = resources.map((file) => {
-            return { url: file.secure_url, public_id: file.public_id };
-        });
+            const images = resources.map((file) => {
+                return { url: file.secure_url, public_id: file.public_id };
+            });
 
-        if (!images.length) {
-            return res.status(404).json({ success: false, message: "No images found in the specified folder." });
+            if (!images.length) {
+                return res.status(404).json({ success: false, message: "No images found in the specified folder." });
+            }
+
+            res.json({ success: true, images });
+        } else {
+            // If no folderName is provided, list all folders
+            const { folders } = await cloudinary.api.sub_folders("your_base_folder"); // Replace with your base folder path if any
+
+            // For each folder, get the first image to use as a cover image
+            const folderCoversPromises = folders.map(async (folder) => {
+                const { resources } = await cloudinary.search
+                    .expression(`folder:${folder.path}`)
+                    .sort_by('public_id', 'desc')
+                    .max_results(1)
+                    .execute();
+
+                // If there's no image, we can decide to skip or put a placeholder
+                const coverImage = resources[0] ? resources[0].secure_url : 'default_cover_image_url';
+
+                return {
+                    name: folder.name,
+                    path: folder.path,
+                    coverImage,
+                };
+            });
+
+            // Resolve all promises from the folderCoversPromises array
+            const folderCovers = await Promise.all(folderCoversPromises);
+
+            res.json({ success: true, folders: folderCovers });
         }
-
-        res.json({ success: true, images });
     } catch (error) {
         console.error('Error fetching media:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 });
+
 
 
 export default router;
