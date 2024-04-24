@@ -13,7 +13,7 @@ const storage = new CloudinaryStorage({
     params: (req, file) => {
         console.log(req.body)
         return {
-            folder: req.body.folderName || 'defaultFolder', // Use folder name from the request, or a default
+            folder: req.body.folderName || 'Beyonce', // Use folder name from the request, or a default
             allowedFormats: ['jpg', 'png'],
             transformation: [{ width: 500, height: 500, crop: 'limit' }],
         };
@@ -75,59 +75,87 @@ router.post('/upload', authenticateUser, upload.single('image'), async (req, res
 
 // Cloudinary Media Retrieval Route
 router.get('/media', async (req, res) => {
-    const { folderName } = req.query; // Get folder name from query parameter
+    // const { folderName } = req.query; // Get folder name from query parameter
+
+    const folderNamesToDisplay = ['Lemonade', 'Cowboy Carter'];
 
     try {
-        if (folderName) {
-            // Fetch the images from a specified folder
+        // if (folderName) {
+        //     // Fetch the images from a specified folder
+        //     const { resources } = await cloudinary.search
+        //         .expression(`folder:${folderName}`)
+        //         .sort_by('public_id', 'desc')
+        //         .max_results(30)
+        //         .execute();
+
+        //     const images = resources.map((file) => {
+        //         return { url: file.secure_url, public_id: file.public_id };
+        //     });
+
+        //     if (!images.length) {
+        //         return res.status(404).json({ success: false, message: "No images found in the specified folder." });
+        //     }
+
+        //     res.json({ success: true, images });
+        // } else {
+        //     // If no folderName is provided, list all folders
+        //     const { folders } = await cloudinary.api.sub_folders("Beyonce"); // Replace with your base folder path if any
+
+        //     // For each folder, get the first image to use as a cover image
+        //     const folderCoversPromises = folders.map(async (folder) => {
+        //         const { resources } = await cloudinary.search
+        //             .expression(`folder:${folder.path}`)
+        //             .sort_by('public_id', 'desc')
+        //             .max_results(1)
+        //             .execute();
+
+        //         // If there's no image, we can decide to skip or put a placeholder
+        //         const coverImage = resources[0] ? resources[0].secure_url : 'default_cover_image_url';
+
+        //         return {
+        //             name: folder.name,
+        //             path: folder.path,
+        //             coverImage,
+        //         };
+        //     });
+
+        // Create an array of promises to get cover images for each folder
+        const folderCoversPromises = folderNamesToDisplay.map(async (folderName) => {
             const { resources } = await cloudinary.search
                 .expression(`folder:${folderName}`)
                 .sort_by('public_id', 'desc')
-                .max_results(30)
+                .max_results(1)
                 .execute();
 
-            const images = resources.map((file) => {
-                return { url: file.secure_url, public_id: file.public_id };
-            });
+            // If there's no image, we can decide to skip or put a placeholder
+            const coverImage = resources[0] ? resources[0].secure_url : 'default_cover_image_url';
 
-            if (!images.length) {
-                return res.status(404).json({ success: false, message: "No images found in the specified folder." });
-            }
+            return {
+                name: folderName,
+                path: folderName,
+                coverImage,
+            };
+        });
 
-            res.json({ success: true, images });
-        } else {
-            // If no folderName is provided, list all folders
-            const { folders } = await cloudinary.api.sub_folders("Beyonce"); // Replace with your base folder path if any
+        // Resolve all promises from the folderCoversPromises array
+        //         const folderCovers = await Promise.all(folderCoversPromises);
 
-            // For each folder, get the first image to use as a cover image
-            const folderCoversPromises = folders.map(async (folder) => {
-                const { resources } = await cloudinary.search
-                    .expression(`folder:${folder.path}`)
-                    .sort_by('public_id', 'desc')
-                    .max_results(1)
-                    .execute();
+        //         res.json({ success: true, folders: folderCovers });
+        //     }
+        //     } catch (error) {
+        //     console.error('Error fetching media:', error);
+        //     res.status(500).json({ success: false, message: error.message });
+        // }
+        // });
+        // Resolve all promises from the folderCoversPromises array
+        const folderCovers = await Promise.all(folderCoversPromises);
 
-                // If there's no image, we can decide to skip or put a placeholder
-                const coverImage = resources[0] ? resources[0].secure_url : 'default_cover_image_url';
-
-                return {
-                    name: folder.name,
-                    path: folder.path,
-                    coverImage,
-                };
-            });
-
-            // Resolve all promises from the folderCoversPromises array
-            const folderCovers = await Promise.all(folderCoversPromises);
-
-            res.json({ success: true, folders: folderCovers });
-        }
+        res.json({ success: true, folders: folderCovers });
     } catch (error) {
         console.error('Error fetching media:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 });
-
 
 
 export default router;
