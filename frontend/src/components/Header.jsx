@@ -1,4 +1,3 @@
-// components/Header.jsx
 import React from 'react';
 import Logo from './reusecomponents/Logo';
 import Button from './reusecomponents/Button';

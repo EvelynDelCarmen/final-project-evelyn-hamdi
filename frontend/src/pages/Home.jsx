@@ -1,21 +1,30 @@
 // pages/Home.jsx
-import 'react';
+import React, { useEffect } from 'react';
+import useImageStore from '../stores/imagestore';
 import ImageGallery from '../components/ImageGallery';
 import Header from '../components/Header';
+import FolderList from '../components/FolderList';
 
 const Home = () => {
+    const { folders, fetchImages } = useImageStore(state => ({
+        folders: state.folders,
+        fetchImages: state.fetchImages
+    }));
+
+    useEffect(() => {
+        fetchImages(); // This should fetch the folders if folderName is not provided
+    }, [fetchImages]);
 
     return (
         <div>
             <Header />
             <ImageGallery />
+            <FolderList folders={folders} />
         </div>
-
     );
 };
 
 export default Home;
-
 
 
 
