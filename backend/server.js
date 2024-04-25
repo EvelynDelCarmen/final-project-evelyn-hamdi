@@ -6,6 +6,7 @@ import expressListEndpoints from "express-list-endpoints";
 import userRoutes from "./routes/userRoutes.js";
 import questionRoutes from "./routes/questionRoutes.js"
 import mediaRoutes from "./routes/mediaRoutes.js"
+import { connectDB } from "./config/db";
 
 
 dotenv.config();
@@ -28,7 +29,7 @@ app.use(userRoutes);
 app.use(questionRoutes);
 app.use(mediaRoutes);
 
-
+connectDB();
 
 app.get("/", (req, res) => {
   const endpoints = expressListEndpoints(app);
