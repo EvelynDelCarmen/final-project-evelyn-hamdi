@@ -25,13 +25,6 @@ const ImageGallery = () => {
         navigate(`/gallery/${folder.path}`);
     };
 
-    // const handleImageClick = (folder) => {
-    //     // Redirect to the detailed gallery view of the clicked folder
-    //     navigate(`/folder/${folder.path}`);
-    // };
-
-    // if (isLoading) return <p>Loading...</p>;
-    // if (error) return <p>Error: {error}</p>;
 
     if (!images || images.length === 0) {
         // If images are not loaded yet or are empty, display a loading message or return null
@@ -47,6 +40,7 @@ const ImageGallery = () => {
     //         ))}
     //     </div>
     // );
+
     return (
         <div className="masonry p-4 bg-black text-white">
             {folderName ? (
@@ -63,21 +57,16 @@ const ImageGallery = () => {
                 <div className="folder-grid">
                     {folders.map((folder) => (
                         <div key={folder.path} className="folder-cover" onClick={() => handleFolderClick(folder)}>
-                            <img src={folder.coverImage} alt={folder.name} className="cover-image" />
-                            <p>{folder.name}</p>
+                            <img src={folder.coverImage} alt={`Cover for ${folder.name}`} className="cover-image" />
+
                         </div>
                     ))}
                 </div>
             )}
         </div>
     );
-
 };
 
+
+
 export default ImageGallery;
-
-
-
-
-
-
