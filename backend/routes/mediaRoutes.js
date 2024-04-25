@@ -74,11 +74,11 @@ router.get('/media', async (req, res) => {
             const folderCoversPromises = ['Lemonade', 'samples', 'uploads'].map(async (folderName) => {
                 const { resources } = await cloudinary.search
                     .expression(`folder:${folderName}`)
-                    .sort_by('public_id', 'desc')
+                    .sort_by('created_at', 'asc')
                     .max_results(1)
                     .execute();
 
-                const coverImage = resources[0] ? resources[0].secure_url : 'default_cover_image_url';
+                const coverImage = resources[0] ? resources[0].secure_url : 'https://res.cloudinary.com/djiqa469b/image/upload/v1713996661/Lemonade/afryka01_cfmlaz.jpg';
                 return { name: folderName, path: folderName, coverImage };
             });
 
