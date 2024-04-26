@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import useImageStore from '../stores/imagestore';
 import ImageGallery from '../components/ImageGallery';
 import Header from '../components/Header';
-import FolderList from '../components/FolderList';
 
 const Home = () => {
     const { folders, fetchImages } = useImageStore(state => ({
@@ -19,7 +18,6 @@ const Home = () => {
         <div>
             <Header />
             <ImageGallery />
-            <FolderList folders={folders} />
         </div>
     );
 };
