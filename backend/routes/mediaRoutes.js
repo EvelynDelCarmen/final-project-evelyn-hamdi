@@ -71,7 +71,7 @@ router.get('/media', async (req, res) => {
             res.json({ success: true, images });
         } else {
             // If no folderName is provided, fetch cover images for specified folders
-            const folderCoversPromises = ['Lemonade', 'samples', 'uploads'].map(async (folderName) => {
+            const folderCoversPromises = ['bey_01', 'samples', 'uploads'].map(async (folderName) => {
                 const { resources } = await cloudinary.search
                     .expression(`folder:${folderName}`)
                     .sort_by('created_at', 'asc')
