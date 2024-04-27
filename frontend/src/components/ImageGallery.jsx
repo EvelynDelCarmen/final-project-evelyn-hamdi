@@ -21,24 +21,42 @@ const ImageGallery = () => {
     }
 
     if (!folderName) {
-        // Display folders if no specific folder is selected
+
+        // cover 
         return (
+            // <div className="folder-grid p-4 bg-black text-white">
+            //     {folders.map((folder) => (
+            //         <div key={folder.path} className="folder-cover" onClick={() => navigate(`/gallery/${folder.path}`)}>
+            //             <img src={folder.coverImage} alt={`Cover for ${folder.name}`} className="cover-image" />
+            //             {/* <p>{folder.name}</p> */}
+            //         </div>
+            //     ))}
+            // </div>
+
+            // <div className="folder-grid grid grid-cols-3 gap-4 p-4">
+            //     {folders.map((folder) => (
+            //         <div key={folder.path} className="folder-cover cursor-pointer shadow-lg hover:shadow-xl rounded-lg overflow-hidden transition-shadow duration-300" onClick={() => navigate(`/gallery/${folder.path}`)}>
+            //             <img src={folder.coverImage} alt={`Cover for ${folder.name}`} className="cover-image w-full h-full object-cover" />
+            //             <p className="text-center text-white bg-black bg-opacity-75 p-2">{folder.name}</p>
+            //         </div>
+            //     ))}
+            // </div>
+
             <div className="folder-grid">
                 {folders.map((folder) => (
-                    <div key={folder.path} className="folder-cover" onClick={() => navigate(`/gallery/${folder.path}`)}>
-                        <img src={folder.coverImage} alt={`Cover for ${folder.name}`} className="cover-image" />
-                        {/* <p>{folder.name}</p> */}
+                    <div key={folder.path} className="folder-cover cursor-pointer shadow-lg hover:shadow-xl rounded-lg overflow-hidden" onClick={() => navigate(`/gallery/${folder.path}`)}>
+                        <img src={folder.coverImage} alt={`Cover for ${folder.name}`} className="cover-image w-full h-full object-cover" />
                     </div>
                 ))}
             </div>
         );
     }
 
-    // Display images of a specific folder
+
     if (!images.length) {
         return <p>No images to display in this folder.</p>;
     }
-
+    //folders inside
     return (
         <div className="masonry p-4 bg-black text-white">
             {images.map((image) => (
