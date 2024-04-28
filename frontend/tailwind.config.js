@@ -10,7 +10,8 @@ export default {
         customBlue: '#0D00FF', // Replace with your desired color
       },
       fontFamily: {
-        archivoBlack: ['Archivo Black', 'sans-serif'],
+        'plex-mono': ['IBM Plex Mono', 'monospace'],
+        'rubik-mono-one': ['Rubik Mono One', 'sans-serif']
       },
     },
   },
