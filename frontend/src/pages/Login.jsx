@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { userStore } from "../stores/userStore"; // Adjust the import path as needed
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from '../components/Header';
 // import Logos from "../components/Logos"; // Ensure this is correctly imported
 
 export const Login = () => {
@@ -49,61 +50,67 @@ export const Login = () => {
     }
   };
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-black text-white font-plex-mono">
-      <div className="w-full max-w-md space-y-8">
-        <h2 className="text-3xl font-bold mb-4 text-white text-center">Sign Up</h2>
-        <form onSubmit={onSignupSubmit} className="flex flex-col items-center">
-          <input
-            className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
-            type="text"
-            placeholder="Username"
-            value={signupUsername}
-            onChange={(e) => setSignupUsername(e.target.value)}
-          />
-          <input
-            className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
-            type="email"
-            placeholder="Email"
-            value={signupEmail}
-            onChange={(e) => setSignupEmail(e.target.value)}
-          />
-          <input
-            className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
-            type="password"
-            placeholder="Password"
-            value={signupPassword}
-            onChange={(e) => setSignupPassword(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="mb-4 md:mb-0 md:mr-4 font-plex-mono bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-300"
-          >
-            Sign Up
-          </button>
-        </form>
-        <h2 className="text-3xl font-bold mb-4 text-white text-center">Login</h2>
-        <form onSubmit={onLoginSubmit} className="flex flex-col items-center">
-          <input
-            className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
-            type="text"
-            placeholder="Username"
-            value={loginUsername}
-            onChange={(e) => setLoginUsername(e.target.value)}
-          />
-          <input
-            className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
-            type="password"
-            placeholder="Password"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="mb-4 md:mb-0 md:mr-4 font-plex-mono bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-300"
-          >
-            Login
-          </button>
-        </form>
+    <div>
+      <Header />
+
+
+
+      <div className="min-h-screen flex flex-col justify-center items-center bg-black text-white font-plex-mono">
+        <div className="w-full max-w-md space-y-8">
+          <h2 className="text-3xl font-bold mb-4 text-white text-center">Sign Up</h2>
+          <form onSubmit={onSignupSubmit} className="flex flex-col items-center">
+            <input
+              className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
+              type="text"
+              placeholder="Username"
+              value={signupUsername}
+              onChange={(e) => setSignupUsername(e.target.value)}
+            />
+            <input
+              className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
+              type="email"
+              placeholder="Email"
+              value={signupEmail}
+              onChange={(e) => setSignupEmail(e.target.value)}
+            />
+            <input
+              className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
+              type="password"
+              placeholder="Password"
+              value={signupPassword}
+              onChange={(e) => setSignupPassword(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="mb-4 md:mb-0 md:mr-4 font-plex-mono bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-300"
+            >
+              Sign Up
+            </button>
+          </form>
+          <h2 className="text-3xl font-bold mb-4 text-white text-center">Login</h2>
+          <form onSubmit={onLoginSubmit} className="flex flex-col items-center">
+            <input
+              className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
+              type="text"
+              placeholder="Username"
+              value={loginUsername}
+              onChange={(e) => setLoginUsername(e.target.value)}
+            />
+            <input
+              className="border border-gray-300 rounded-md p-2 mb-2 w-72 text-white bg-gray-800"
+              type="password"
+              placeholder="Password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="mb-4 md:mb-0 md:mr-4 font-plex-mono bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-300"
+            >
+              Login
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

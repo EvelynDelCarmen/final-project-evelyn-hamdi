@@ -3,7 +3,6 @@ import { create } from "zustand";
 
 // Get the backend API endpoint from the environment variables.
 const apiEnv = import.meta.env.VITE_BACKEND_API;
-
 // Create a Zustand store for user-related state and actions.
 export const userStore = create((set, get) => ({
   // Initialize username state.
@@ -58,7 +57,9 @@ export const userStore = create((set, get) => ({
         // Display a success alert.
         alert("Signup successful!");
         console.log("Signing up with:", username);
-      } else {
+      }
+
+      else {
         // Display an error message from the server or a generic message.
         alert(data.response || "Signup failed");
       }
@@ -87,6 +88,11 @@ export const userStore = create((set, get) => ({
         body: JSON.stringify({ username, password }),
         credentials: 'include',
       });
+
+      if (!response.ok) {
+        // Handle the non-OK response here
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       // Parse the response data as JSON.
       const data = await response.json();

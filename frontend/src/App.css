@@ -128,3 +128,23 @@ body {
         /* Space between items */
     }
 }
+
+/* ANIMATION */
+
+.tv-noise {
+    position: absolute;
+    inset: -200%;
+    opacity: 15%;
+    z-index: -1;
+    animation: shift 0.2s linear infinite both;
+}
+
+@keyframes shift {
+    0% {
+        transform: translateX(10%) translateY(10%);
+    }
+
+    100% {
+        transform: translateX(-10%) translateY(-10%);
+    }
+}
