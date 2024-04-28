@@ -3,14 +3,15 @@ import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+const generateToken = (user) => {
+  // Function to generate JWT token
+  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "24h",
+  });
+};
+
 export const registerUserController = asyncHandler(async (req, res) => {
 
-  const generateToken = (user) => {
-    // Function to generate JWT token
-    return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "24h",
-    });
-  };
 
   const { username, password, email } = req.body;
 
@@ -43,6 +44,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
 
     await newUser.save();
 
+    const token = generateToken(newUser._id);
 
     res.status(201).json({
       success: true,
@@ -50,7 +52,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
         username: newUser.username,
         email: newUser.email,
         id: newUser._id,
-        accessToken: generateToken(newUser),
+        accessToken: token,
       },
     });
   } catch (e) {
@@ -83,13 +85,14 @@ export const loginUserController = asyncHandler(async (req, res) => {
         .status(401)
         .json({ success: false, response: "Incorrect password" });
     }
+    const token = generateToken(user._id);
 
     res.status(200).json({
       success: true,
       response: {
         username: user.username,
         id: user._id,
-        accessToken: generateToken(user),
+        accessToken: token,
       },
     });
   } catch (e) {
