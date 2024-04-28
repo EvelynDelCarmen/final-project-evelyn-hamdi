@@ -1,8 +1,16 @@
 import { UserModel } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const registerUserController = asyncHandler(async (req, res) => {
+
+  const generateToken = (user) => {
+    // Function to generate JWT token
+    return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
+    });
+  };
 
   const { username, password, email } = req.body;
 
@@ -42,7 +50,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
         username: newUser.username,
         email: newUser.email,
         id: newUser._id,
-        accessToken: newUser.accessToken,
+        accessToken: generateToken(newUser),
       },
     });
   } catch (e) {
@@ -81,7 +89,7 @@ export const loginUserController = asyncHandler(async (req, res) => {
       response: {
         username: user.username,
         id: user._id,
-        accessToken: user.accessToken,
+        accessToken: generateToken(user),
       },
     });
   } catch (e) {
