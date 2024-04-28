@@ -204,32 +204,65 @@ const ImageGallery = () => {
     //             }
     //         });
 
+    // useEffect(() => {
+    //     if (!isLoading && images.length && galleryRef.current) {
+    //         const panels = gsap.utils.toArray('.image-container', galleryRef.current);
+
+    //         // If you want to start the animation as soon as the images are in view,
+    //         // use 'left center' for horizontal scrolling
+    //         gsap.to(panels, {
+    //             xPercent: -100 * (panels.length - 1),
+    //             ease: "none",
+    //             scrollTrigger: {
+    //                 trigger: galleryRef.current,
+    //                 start: "left center", // The animation starts as soon as the element comes into view
+    //                 end: () => `+=${galleryRef.current.scrollWidth}`,
+    //                 pin: true,
+    //                 scrub: 1,
+    //                 snap: 1 / (panels.length - 1),
+    //                 // markers: true // For debugging
+    //             }
+    //         });
+    //         console.log(scrollTriggerInstance.scrollTrigger); // Log the ScrollTrigger instance
+
+    //         return () => {
+    //             scrollTriggerInstance.scrollTrigger.kill(); // Cleanup ScrollTrigger
+    //         };
+    //     }
+    // }, [images, isLoading]);
+
     useEffect(() => {
         if (!isLoading && images.length && galleryRef.current) {
-            const panels = gsap.utils.toArray('.image-container', galleryRef.current);
+            // Determine if we're on a mobile device based on window width
+            const isMobile = window.innerWidth < 768; // Example breakpoint for mobile devices
 
-            // If you want to start the animation as soon as the images are in view,
-            // use 'left center' for horizontal scrolling
-            gsap.to(panels, {
-                xPercent: -100 * (panels.length - 1),
-                ease: "none",
-                scrollTrigger: {
-                    trigger: galleryRef.current,
-                    start: "left center", // The animation starts as soon as the element comes into view
-                    end: () => `+=${galleryRef.current.scrollWidth}`,
-                    pin: true,
-                    scrub: 1,
-                    snap: 1 / (panels.length - 1),
-                    // markers: true // For debugging
-                }
-            });
-            console.log(scrollTriggerInstance.scrollTrigger); // Log the ScrollTrigger instance
+            if (!isMobile) {
+                // Desktop/Tablet horizontal scrolling
+                const panels = gsap.utils.toArray('.image-container', galleryRef.current);
 
-            return () => {
-                scrollTriggerInstance.scrollTrigger.kill(); // Cleanup ScrollTrigger
-            };
+                gsap.to(panels, {
+                    xPercent: -100 * (panels.length - 1),
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: galleryRef.current,
+                        start: "top top", // Start when the top of the trigger hits the top of the viewport
+                        end: () => `+=${galleryRef.current.scrollWidth}`,
+                        pin: true,
+                        scrub: 1,
+                        snap: 1 / (panels.length - 1),
+                        // markers: true // Uncomment for debugging purposes
+                    }
+                });
+
+                return () => {
+                    // Cleanup ScrollTrigger instances
+                    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+                };
+            }
+            // Mobile devices use normal scrolling, no need for ScrollTrigger
         }
     }, [images, isLoading]);
+
 
     if (isLoading) {
         return <p>Loading...</p>;
@@ -260,10 +293,10 @@ const ImageGallery = () => {
     }
     //folders inside
     return (
-        <div className="image-grid flex overflow-x-auto p-4 bg-black text-white">
+        <div className="image-grid flex overflow-x-auto p-4 bg-black text-white space-x-4">
             {images.map((image) => (
                 <div key={image.public_id} className="image-container flex-shrink-0 overflow-hidden mb-4">
-                    <img src={image.url} alt="Gallery" className="object-cover w-full h-auto" />
+                    <img src={image.url} alt="Gallery" className="h-screen w-full object-cover" />
                 </div>
             ))}
         </div>

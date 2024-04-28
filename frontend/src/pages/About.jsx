@@ -28,24 +28,25 @@ const About = () => {
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center">
-            <h1 className="text-3xl font-bold mb-4">About Beyoncé</h1>
+            <h1 className="text-3xl font-bold mb-4 font-plex-mono">About Beyoncé</h1>
             <form onSubmit={handleSubmit} className="flex flex-col items-center">
                 <input
                     type="text"
                     value={question}
                     onChange={handleQuestionChange}
                     placeholder="Ask something about Beyoncé..."
-                    className="border border-gray-400 rounded-md p-2 mb-2 w-72 text-black"
+                    className="border border-gray-400 rounded-md p-2 mb-2 w-72 text-black font-plex-mono"
                 />
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className={`bg-blue-500 text-white rounded-md py-2 px-4 ${isLoading && 'opacity-50 cursor-not-allowed'}`}
+                    className={`bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors duration-300 py-2 px-4 ${isLoading ? 'opacity-50 cursor-not-allowed font-plex-mono' : ''}`}
                 >
                     {isLoading ? 'Asking...' : 'Ask'}
                 </button>
+
             </form>
-            {answer && <p className="mt-4">{answer}</p>}
+            {answer && <p className="mt-4 font-plex-mono">{answer}</p>}
         </div>
     );
 };

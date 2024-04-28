@@ -7,7 +7,7 @@ body {
 }
 
 
-/* Base masonry grid setup */
+/* FRONTPAGE  masonry grid setup */
 .folder-grid {
     column-gap: 1rem;
     /* Adjust the gap between columns */
@@ -79,4 +79,52 @@ body {
     transform: scale(1.03);
     /* Slight zoom effect on hover */
     transition: transform 300ms ease-in-out;
+}
+
+/* GALLERY LAYOUT */
+
+/* Mobile Styles (Default) */
+.image-grid {
+    display: flex;
+    flex-direction: column;
+    /* Stack images vertically */
+    overflow-y: auto;
+    /* Allow vertical scrolling */
+    padding: 4px;
+    background-color: black;
+    color: white;
+}
+
+.image-container {
+    margin-bottom: 16px;
+    /* Space between images */
+    overflow: hidden;
+    /* Hide any overflow */
+    width: 100%;
+    /* Full width containers */
+    box-sizing: border-box;
+    /* Include padding and border in the width */
+}
+
+/* Desktop and Tablet Styles */
+@media (min-width: 768px) {
+    .image-grid {
+        flex-direction: row;
+        /* Lay out images in a row */
+        overflow-x: auto;
+        /* Allow horizontal scrolling */
+        overflow-y: hidden;
+        /* Disable vertical scrolling */
+        align-items: start;
+        /* Align items at the start of the flex container */
+    }
+
+    .image-container {
+        flex-shrink: 0;
+        /* Prevent flex items from shrinking */
+        width: auto;
+        /* Auto width based on content */
+        margin-right: 16px;
+        /* Space between items */
+    }
 }
