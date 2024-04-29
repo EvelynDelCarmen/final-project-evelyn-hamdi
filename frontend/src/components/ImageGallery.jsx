@@ -5,6 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import useImageStore from '../stores/imagestore';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import Header from './Header';
+
 
 const ImageGallery = () => {
     const { images, folders, fetchImages, isLoading, error } = useImageStore();
@@ -81,12 +83,16 @@ const ImageGallery = () => {
     }
     //folders inside
     return (
-        <div className="image-grid flex overflow-x-auto p-4 bg-black text-white space-x-4">
-            {images.map((image) => (
-                <div key={image.public_id} className="image-container flex-shrink-0 overflow-hidden mb-4">
-                    <img src={image.url} alt="Gallery" className="h-screen w-full object-cover" />
-                </div>
-            ))}
+        <div>
+            <Header />
+
+            <div className="image-grid flex overflow-x-auto p-4 bg-black text-white space-x-4">
+                {images.map((image) => (
+                    <div key={image.public_id} className="image-container flex-shrink-0 overflow-hidden mb-4">
+                        <img src={image.url} alt="Gallery" className="h-screen w-full object-cover" />
+                    </div>
+                ))}
+            </div>
         </div>
 
     );
