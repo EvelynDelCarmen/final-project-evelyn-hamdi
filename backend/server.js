@@ -22,7 +22,7 @@ app.use(cors({
 
 app.use(express.json()); // Parse incoming JSON data
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
-// app.use(express.urlencoded({ extended: true }));
+
 
 
 app.use(userRoutes);

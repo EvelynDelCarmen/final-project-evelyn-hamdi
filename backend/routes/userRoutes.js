@@ -7,10 +7,10 @@ import {
 const router = express.Router();
 
 
-router.post("/register", registerUserController); // When a POST request is made to /register, execute the registerUserController function
+router.post("/register", registerUserController);
 
 
-router.post("/login", loginUserController); // When a POST request is made to /login, execute the loginUserController function
+router.post("/login", loginUserController);
 
 
 export default router;
