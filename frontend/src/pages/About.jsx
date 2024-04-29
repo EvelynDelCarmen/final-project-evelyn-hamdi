@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
-// At the top of your React component file
 import glitchEffectImage from '../assets/noise.png';
 
 

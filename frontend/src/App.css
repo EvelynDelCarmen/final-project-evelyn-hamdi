@@ -10,10 +10,8 @@ body {
 /* FRONTPAGE  masonry grid setup */
 .folder-grid {
     column-gap: 1rem;
-    /* Adjust the gap between columns */
     padding: 2rem;
     column-count: 2;
-    /* Start with one column for mobile views */
 }
 
 /* Responsive column adjustments */
@@ -30,7 +28,6 @@ body {
     /* Tailwind's 'md' breakpoint */
     .folder-grid {
         column-count: 3;
-        /* Originally grid-cols-3, retained here for medium screens */
     }
 }
 
@@ -40,16 +37,12 @@ body {
     /* Tailwind's 'lg' breakpoint */
     .folder-grid {
         column-count: 3;
-        /* Reduce to fewer columns for larger displays */
     }
 
     .folder-cover img {
         width: auto;
-        /* Adjust width */
         max-width: 100%;
-        /* Ensure it doesn't exceed the container width */
         height: auto;
-        /* Adjust height to maintain aspect ratio */
     }
 }
 
@@ -58,38 +51,29 @@ body {
     /* Tailwind's 'xl' breakpoint */
     .folder-grid {
         column-count: 3;
-        /* Further reduce for very large displays */
     }
 }
 
 
 .folder-cover {
     break-inside: avoid;
-    /* Prevents items from splitting across columns */
     margin-bottom: 10rem;
-    /* Adds space below each folder */
     display: inline-block;
-    /* Ensures the break-inside works correctly */
     width: 100%;
-    /* Ensures covers take full width of the column */
 }
 
 /* Additional styling for hover effects and transitions */
 .folder-cover:hover {
     transform: scale(1.03);
-    /* Slight zoom effect on hover */
     transition: transform 300ms ease-in-out;
 }
 
 /* GALLERY LAYOUT */
 
-/* Mobile Styles (Default) */
 .image-grid {
     display: flex;
     flex-direction: column;
-    /* Stack images vertically */
     overflow-y: auto;
-    /* Allow vertical scrolling */
     padding: 4px;
     background-color: black;
     color: white;
@@ -97,35 +81,24 @@ body {
 
 .image-container {
     margin-bottom: 16px;
-    /* Space between images */
     overflow: hidden;
-    /* Hide any overflow */
     width: 100%;
-    /* Full width containers */
     box-sizing: border-box;
-    /* Include padding and border in the width */
 }
 
 /* Desktop and Tablet Styles */
 @media (min-width: 768px) {
     .image-grid {
         flex-direction: row;
-        /* Lay out images in a row */
         overflow-x: auto;
-        /* Allow horizontal scrolling */
         overflow-y: hidden;
-        /* Disable vertical scrolling */
         align-items: start;
-        /* Align items at the start of the flex container */
     }
 
     .image-container {
         flex-shrink: 0;
-        /* Prevent flex items from shrinking */
         width: auto;
-        /* Auto width based on content */
         margin-right: 16px;
-        /* Space between items */
     }
 }
 

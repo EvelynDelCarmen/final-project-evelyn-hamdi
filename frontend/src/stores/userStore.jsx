@@ -4,7 +4,7 @@ import { create } from "zustand";
 // Get the backend API endpoint from the environment variables.
 const apiEnv = import.meta.env.VITE_BACKEND_URL;
 if (!apiEnv) {
-  console.error('VITE_BACKEND_API environment variable is not set.');
+  console.error('VITE_BACKEND_URL environment variable is not set.');
 }
 
 
@@ -39,8 +39,11 @@ export const userStore = create((set, get) => ({
   handleSignup: async (username, password, email) => {
     // Check if required fields are provided and display an alert if not.
     if (!username || !password || !email) {
-      alert("Please enter username, email, and password");
-      return;
+
+      // alert("Please enter username, email, and password");
+      // return;
+
+      return { success: false, message: "Please enter username, email, and password" };
     }
 
     try {
@@ -56,31 +59,26 @@ export const userStore = create((set, get) => ({
 
       // Parse the response data as JSON.
       const data = await response.json();
-      if (data.success) {
-        // Update the username state.
-        set({ username });
-        // Display a success alert.
-        alert("Signup successful!");
-        console.log("Signing up with:", username);
-      }
 
-      else {
-        // Display an error message from the server or a generic message.
-        alert(data.response || "Signup failed");
+      if (data.success) {
+        set({ username });
+        return { success: true, message: "Signup successful! Please log in." };
+      } else {
+        return { success: false, message: data.response || "Signup failed" };
       }
     } catch (error) {
-      // Handle and log any signup errors.
       console.error("Signup error:", error);
-      alert("An error occurred during signup");
+      return { success: false, message: "An error occurred during signup" };
     }
   },
 
+
+
   // LOGIN
   handleLogin: async (username, password) => {
-    // Check if both username and password are provided and display an alert if not.
+
     if (!username || !password) {
-      alert("Please enter both username and password");
-      return;
+      return { success: false, message: "Please enter both username and password" };
     }
 
     try {
@@ -94,33 +92,28 @@ export const userStore = create((set, get) => ({
         credentials: 'include',
       });
 
+
+
       if (!response.ok) {
         // Handle the non-OK response here
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Parse the response data as JSON.
       const data = await response.json();
       if (data.success) {
-        // Update the state with username, accessToken, and set isLoggedIn to true.
         set({
           username,
           accessToken: data.response.accessToken,
           isLoggedIn: true,
         });
-        // Store the accessToken in the browser's localStorage.
         localStorage.setItem("accessToken", data.response.accessToken);
-        // Display a success alert.
-        alert("Login successful!");
-        console.log("Logging in with:", username, password);
+        return { success: true, message: "Login successful!" };
       } else {
-        // Display an error message from the server or a generic message.
-        alert(data.response || "Login failed");
+        return { success: false, message: data.response || "Login failed" };
       }
     } catch (error) {
-      // Handle and log any login errors.
       console.error("Login error:", error);
-      alert("An error occurred during login");
+      return { success: false, message: "Wrong username or password, try again!" };
     }
   },
 

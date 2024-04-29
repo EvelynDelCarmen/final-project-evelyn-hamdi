@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '../components/reusecomponents/Button';
 
-// Define the 'NotFound' functional component.
+
 export const NotFound = () => {
-  // Image URL (replace 'your_image_url_here' with your actual image URL)
+
   const imageUrl = 'https://res.cloudinary.com/djiqa469b/image/upload/v1714333019/bey_extra/bey_project_44_rctdm9.jpg';
 
   return (

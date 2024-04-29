@@ -8,8 +8,6 @@ import { Welcome } from "../pages/Welcome";
 import { NotFound } from "../pages/NotFound";
 
 
-
-// Define the 'routes' variable as a JSX expression.
 const routes = (
   <>
     <Route path="/" element={<Home />} />

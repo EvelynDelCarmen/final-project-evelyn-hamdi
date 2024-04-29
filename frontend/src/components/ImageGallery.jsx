@@ -12,7 +12,7 @@ const ImageGallery = () => {
     const { images, folders, fetchImages, isLoading, error } = useImageStore();
     const { folderName } = useParams();
     const navigate = useNavigate();
-    const galleryRef = useRef(); // Ref for the gallery container
+    const galleryRef = useRef();
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -23,11 +23,11 @@ const ImageGallery = () => {
 
     useEffect(() => {
         if (!isLoading && images.length && galleryRef.current) {
-            // Determine if we're on a mobile device based on window width
+
             const isMobile = window.innerWidth < 768; // Example breakpoint for mobile devices
 
             if (!isMobile) {
-                // Desktop/Tablet horizontal scrolling
+
                 const panels = gsap.utils.toArray('.image-container', galleryRef.current);
 
                 gsap.to(panels, {
@@ -49,7 +49,6 @@ const ImageGallery = () => {
                     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
                 };
             }
-            // Mobile devices use normal scrolling, no need for ScrollTrigger
         }
     }, [images, isLoading]);
 
@@ -64,7 +63,7 @@ const ImageGallery = () => {
 
     if (!folderName) {
 
-        // cover 
+        //fontpage
         return (
 
             <div className="folder-grid">
@@ -81,18 +80,12 @@ const ImageGallery = () => {
     if (!images.length) {
         return <p>No images to display in this folder.</p>;
     }
-    //folders inside
+
+    //gallery
+
     return (
         <div>
             <Header />
-
-            {/* <div className="image-grid flex overflow-x-auto p-4 bg-black text-white space-x-4">
-                {images.map((image) => (
-                    <div key={image.public_id} className="image-container flex-shrink-0 overflow-hidden mb-4">
-                        <img src={image.url} alt="Gallery" className="h-screen w-full object-cover" />
-                    </div>
-                ))}
-            </div> */}
 
             <div className="image-grid flex overflow-x-auto p-4 bg-black text-white space-x-4">
                 {images.map((image) => (
@@ -101,9 +94,6 @@ const ImageGallery = () => {
                     </div>
                 ))}
             </div>
-
-
-
         </div>
 
     );

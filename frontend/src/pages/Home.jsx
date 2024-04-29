@@ -12,7 +12,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        fetchImages(); // This should fetch the folders if folderName is not provided
+        fetchImages();
     }, [fetchImages]);
 
     return (

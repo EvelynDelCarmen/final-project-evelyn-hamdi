@@ -8,7 +8,7 @@ export const Welcome = () => {
 
     const onSignOut = () => {
         logout(); // This should clear the token and update the isLoggedIn state.
-        navigate('/'); // Redirect the user to the login page.
+        navigate('/');
     };
 
     return (
