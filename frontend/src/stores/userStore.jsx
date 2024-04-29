@@ -2,7 +2,11 @@
 import { create } from "zustand";
 
 // Get the backend API endpoint from the environment variables.
-const apiEnv = import.meta.env.VITE_BACKEND_API;
+const apiEnv = import.meta.env.VITE_BACKEND_URL;
+if (!apiEnv) {
+  console.error('VITE_BACKEND_API environment variable is not set.');
+}
+
 
 // Create a Zustand store for user-related state and actions.
 export const userStore = create((set, get) => ({
