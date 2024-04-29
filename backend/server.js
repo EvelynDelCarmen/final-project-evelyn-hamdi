@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
   console.log(endpoints);
 });
 
-// Global error handler
+
 app.use((err, req, res, next) => {
   console.error(`Error: ${err.message}`);
   res.status(500).send('Server Error');

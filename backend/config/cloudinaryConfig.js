@@ -10,3 +10,5 @@ cloudinary.config({
 });
 
 export default cloudinary;
+
+//this is the cloudinary
