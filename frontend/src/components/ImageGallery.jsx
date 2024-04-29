@@ -86,13 +86,24 @@ const ImageGallery = () => {
         <div>
             <Header />
 
-            <div className="image-grid flex overflow-x-auto p-4 bg-black text-white space-x-4">
+            {/* <div className="image-grid flex overflow-x-auto p-4 bg-black text-white space-x-4">
                 {images.map((image) => (
                     <div key={image.public_id} className="image-container flex-shrink-0 overflow-hidden mb-4">
                         <img src={image.url} alt="Gallery" className="h-screen w-full object-cover" />
                     </div>
                 ))}
+            </div> */}
+
+            <div className="image-grid flex overflow-x-auto p-4 bg-black text-white space-x-4">
+                {images.map((image) => (
+                    <div key={image.public_id} className="image-container flex-shrink-0 overflow-hidden mb-4 flex justify-center items-center">
+                        <img src={image.url} alt="Gallery" className="h-64 sm:h-96 md:h-screen object-contain" />
+                    </div>
+                ))}
             </div>
+
+
+
         </div>
 
     );

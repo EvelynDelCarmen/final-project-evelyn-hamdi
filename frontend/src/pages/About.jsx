@@ -42,8 +42,8 @@ const About = () => {
                 }}
             />
             <Header />
-            <div className="min-h-screen flex flex-col justify-center items-center">
-                <h1 className="text-3xl font-bold mb-4 font-plex-mono">About Beyoncé</h1>
+            <div className="min-h-screen flex flex-col justify-start md:justify-center items-center pt-4">
+                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 font-plex-mono">What do you want to know?</h1>
                 <form onSubmit={handleSubmit} className="flex flex-col items-center">
                     <input
                         type="text"
@@ -59,9 +59,8 @@ const About = () => {
                     >
                         {isLoading ? 'Asking...' : 'Ask'}
                     </button>
-
                 </form>
-                {answer && <p className="mt-4 font-plex-mono">{answer}</p>}
+                {answer && <p className="mt-4 font-plex-mono max-w-md mx-auto text-center px-4">{answer}</p>}
             </div>
 
         </div>
